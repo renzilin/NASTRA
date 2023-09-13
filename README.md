@@ -15,14 +15,14 @@ In this part, we introcduce the installation step and test the code for NASTRA. 
 
 
 ```bash
-# download the source code
-git clone https://github.com/renzilin/NASTRA.git # the size of test data is ~67Mb, this may be time-consuming
+# download the source code, the size of test data is ~67Mb, this may be time-consuming
+git clone https://github.com/renzilin/NASTRA.git
 
 # enter the directory
 cd NASTRA
 
-# install dependencies
-conda env create -n nastra_env -f env.yaml # only test on Ubuntu
+# install dependencies. Only test on Ubuntu System (samtools can't be install via conda for ARM)
+conda env create -n nastra_env -f env.yaml
 
 # code test
 conda activate nastra_env
