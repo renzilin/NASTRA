@@ -11,7 +11,7 @@ In this repository, we provide a STR genotyping method for forensic-level accura
 
 ## Installation and Test
 
-In this part, we introcduce the installation step and test the code for NASTRA. We use `conda` to manage the computing environment, and install samtools v1.9 firstly via the `bioconda` channel. Once finish the installtion step, we provide the alignment files of eight standard cell lines for code test. Indeed, the files are downsampled using [NanoTime](https://github.com/renzilin/NanoTime). 
+In this part, we introcduce the installation step and test the code for NASTRA. We use `conda` to manage the computing environment, and install samtools v1.9 firstly via the `bioconda` channel. Once finish the installtion step, we provide the alignment files of eight standard cell lines for code test. Additionally, the files are downsampled using [NanoTime](https://github.com/renzilin/NanoTime). 
 
 
 ```bash
