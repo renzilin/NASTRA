@@ -5,6 +5,9 @@ Innovative Short Tandem Repeat Analysis through Cluster-Based Structure-Aware Al
 ## Install
 
 ```bash
+git clone https://github.com/renzilin/NASTRA.git # the size of test data is ~67Mb
+
+cd NASTRA
 
 # only test on Ubuntu
 

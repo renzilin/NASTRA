@@ -26,7 +26,7 @@ def get_args():
     main_parser.add_argument('-b', '--bam',       help='the path of bam file', required = True, type = str)
     main_parser.add_argument('-f', '--factsheet', help='the path of STR factsheet', default = "%s/cfgs/repeat_structure.pat" % script_dir, required = False, type = str)
     main_parser.add_argument('-p', '--panel',     help='the path of the loci panel file', default = "%s/cfgs/panel_forenseq.csv" % script_dir, required=False, type = str)
-    main_parser.add_argument('-c', '--config',    help='the config file of SN cutoff', default = "%s/cfgs/cutoff.cfg" % script_dir, required=False, type=str)
+    main_parser.add_argument('-c', '--config',    help='the config file of SN cutoff', default = "%s/cfgs/threshold.cfg" % script_dir, required=False, type=str)
     main_parser.add_argument('-o', '--output',    help='the path of output', required = True, type = str)
     main_parser.add_argument('--samtools',        help='the PATH to samtools', default = "samtools", required = False, type = str)
     main_parser.add_argument('--sncutoff',        help='the value of sn cutoff', default = 25, required = False, type = int)
