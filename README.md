@@ -11,7 +11,7 @@ In this repository, we provide a STR genotyping method for forensic-level accura
 
 ## Installation and Test
 
-In this part, we introcduce the installation step and test the code for NASTRA. We use `conda` to manage the computing environment, and install samtools v1.9 firstly via the `bioconda` channel. Once finish the installtion step, we provide the alignment files for code test, including XX, and XX. Indeed, the files are downsampled using [NanoTime](https://github.com/renzilin/NanoTime). 
+In this part, we introcduce the installation step and test the code for NASTRA. We use `conda` to manage the computing environment, and install samtools v1.9 firstly via the `bioconda` channel. Once finish the installtion step, we provide the alignment files of eight standard cell lines for code test. Indeed, the files are downsampled using [NanoTime](https://github.com/renzilin/NanoTime). 
 
 
 ```bash
@@ -30,7 +30,7 @@ conda activate nastra_env
 # sample-level parallelization using xargs
 seq -w 01 08 | xargs -P 8 -L 1 -I {} python NASTRA/nastra.py call -b test_data/alignment_8standards_1h/barcode{}.bam -o test_data/nastra_out/barcode{}.txt;
 ```
-The information of `BAM` files is listed below:
+The sample information of `BAM` files is listed below:
 | File name      | Sample   |
 |----------------|----------|
 | barcode01.bam  | NA12878  |
