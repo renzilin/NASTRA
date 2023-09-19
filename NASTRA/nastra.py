@@ -37,27 +37,28 @@ def get_args():
     return args
 
 
+
 def genotype_calling(nanostr_lst, sn_cutoff, snr_cutoff):
     if len(nanostr_lst) == 0:
-        return 'Fail: NoCalling'
+        return '', '', 0, 0, 0, '', '', 'Fail: NoCalling'
     elif len(nanostr_lst) == 4:
         nst1, nst_sn1, nst_snr1, nst_seq1 = nanostr_lst
         if nst_sn1 <= sn_cutoff:
-            return 'Fail: Interpretation'
+            return nst1, nst1, nst_sn1, 0, 0, nst_seq1, nst_seq1, 'Fail: Interpretation'
         nst2 = nst1
         nst_sn2  = 0
         nst_seq2 = nst_seq1
     else:
         nst1, nst_sn1, nst_snr1, nst_seq1, nst2, nst_sn2, nst_snr2, nst_seq2 = nanostr_lst
         if nst_sn1 < sn_cutoff and nst_sn2 < sn_cutoff:
-            return 'Fail: Interpretation'
+            return nst1, nst2, nst_sn1, nst_sn2, round(nst_sn2/nst_sn1, 3), nst_seq1, nst_seq2, 'Fail: Interpretation'
         if nst_sn1 >= sn_cutoff and nst_sn2 < sn_cutoff:
-            return 'Fail: Imbalance'
+            return nst1, nst2, nst_sn1, nst_sn2, round(nst_sn2/nst_sn1, 3), nst_seq1, nst_seq2, 'Fail: Imbalance'
         if nst_snr2 < snr_cutoff:
             nst2     = nst1
             nst_sn2  = 0
             nst_seq2 = nst_seq1
-    return nst1, nst2, nst_sn1, nst_sn2, round(nst_sn2/nst_sn1, 3), nst_seq1, nst_seq2, 
+    return nst1, nst2, nst_sn1, nst_sn2, round(nst_sn2/nst_sn1, 3), nst_seq1, nst_seq2, 'pass'
 
 
 def calling_func(args):
@@ -132,17 +133,18 @@ def calling_func(args):
         genotype_dict['%s_%s' % (barcode, locus)] += [float(genotype), int(sn), float(sn_ratio), seq]
 
     outfile = open(outpath, 'w')
-    outfile.write('barcode,locus,qc_info,allele1,allele2,sn1,sn2,snr,seq1,seq2\n')
+    outfile.write('barcode,locus,allele1,allele2,sn1,sn2,snr,seq1,seq2,qc_info\n')
     for key in genotype_dict:
         sample_name, locus = key.split('_')
         snr_cutoff     = best_threshold_df.loc[best_threshold_df.locus == locus, 'cov_%d' % sn_cutoff].values[0]
         nanostr_out    = genotype_calling(genotype_dict[key], sn_cutoff, snr_cutoff)
 
-        if 'Fail' in nanostr_out:
-            outfile.write( f"{sample_name},{locus},{nanostr_out},,,,,,,\n" )
-        else:
-            outfile.write( f"{sample_name},{locus},pass,{','.join([str(i) for i in nanostr_out])}\n" )
+        # if 'Fail' in nanostr_out:
+        #     outfile.write( f"{sample_name},{locus},{nanostr_out},,,,,,,\n" )
+        # else:
+        outfile.write( f"{sample_name},{locus},{','.join([str(i) for i in nanostr_out])}\n" )
     outfile.close()
+
 
 
 
