@@ -1,7 +1,12 @@
+
 NASTRA/libs/__pycache__
 NASTRA/cfgs/.ipynb_checkpoints
-test_data/nastra_out/
+test_data/nastra_out
 
 
 data
 notebooks
+figures
+paternity_index_calculation/niming-family
+.DS_Store
+test_data/STRbase_results
