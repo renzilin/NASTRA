@@ -2,13 +2,12 @@
 This is the code for Paternity Index calculation
 
 """
-import numpy  as np
-import pandas as pd
 from collections import defaultdict
 
-class Paternity_Index_Cal():
+class Paternity_Index_Cal:
     def __init__(self, freq_csv_path):
-        self.allele_freq_dict = self.get_allele_freq_dict(freq_csv_path)
+        self.freq_csv_path = freq_csv_path
+        self.allele_freq_dict = self.get_allele_freq_dict()
 
     def single_paternity_cal(self, child_alleles, pater_alleles, locus):
         child_allele_1, child_allele_2 = child_alleles
@@ -37,7 +36,7 @@ class Paternity_Index_Cal():
                 return 0 # pq, r
 
         if child_allele_1 != child_allele_2 and pater_allele_1 != pater_allele_2:
-            if child_allele_1 == pater_allele_1 and child_allele_2 == pater_allele_2 or child_allele_1 == pater_allele_2 and child_allele_2 == pater_allele_1:
+            if (child_allele_1 == pater_allele_1 and child_allele_2 == pater_allele_2) or (child_allele_1 == pater_allele_2 and child_allele_2 == pater_allele_1):
                 return (locus_allele_freq_dict[child_allele_1] + locus_allele_freq_dict[child_allele_2]) / (4 * locus_allele_freq_dict[child_allele_1] * locus_allele_freq_dict[child_allele_2])  # pq, pq, (p+q) / 4pq	
             
             elif  child_allele_1 == pater_allele_1 or child_allele_1 == pater_allele_2:
@@ -48,17 +47,20 @@ class Paternity_Index_Cal():
             else:
                 return 0 # pq, rs
     
-    def get_allele_freq_dict(freq_csv_path):
-        freq_table = pd.read_csv(freq_csv_path)
+    def get_allele_freq_dict(self):
         
-        for 
+        freq_dict = defaultdict(lambda: defaultdict(int))
 
-        freq_dict = defaultdict()
-
-
-        
+        with open(self.freq_csv_path, 'r') as f:
+            for line_cnt, line in enumerate(f):
+                if line_cnt == 0:
+                    continue
+                locus, allele, freq = line.strip().split(',')
+                freq_dict[locus][float(allele)] = float(freq)
         return freq_dict
     
 
-
-
+if __name__ == '__main__':
+    PIC = Paternity_Index_Cal('CHN_STR_allele_freqs.csv')
+    print( PIC.single_paternity_cal([13.0, 10.0], [12.0, 10.0], 'CSF1PO') )
+    

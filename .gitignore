@@ -10,3 +10,4 @@ figures
 paternity_index_calculation/niming-family
 .DS_Store
 test_data/STRbase_results
+paternity_index_calculation/__pycache__/
