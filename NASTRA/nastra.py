@@ -52,7 +52,7 @@ def genotype_calling(nanostr_lst, sn_cutoff, snr_cutoff):
         nst1, nst_sn1, nst_snr1, nst_seq1, nst2, nst_sn2, nst_snr2, nst_seq2 = nanostr_lst
         if nst_sn1 < sn_cutoff and nst_sn2 < sn_cutoff:
             return nst1, nst2, nst_sn1, nst_sn2, round(nst_sn2/nst_sn1, 3), nst_seq1, nst_seq2, 'Fail: Interpretation'
-        if nst_sn1 >= sn_cutoff and nst_sn2 < sn_cutoff:
+        if nst_sn1 >= sn_cutoff and nst_sn2 < sn_cutoff and nst_snr2 >= snr_cutoff:
             return nst1, nst2, nst_sn1, nst_sn2, round(nst_sn2/nst_sn1, 3), nst_seq1, nst_seq2, 'Fail: Imbalance'
         if nst_snr2 < snr_cutoff:
             nst2     = nst1
