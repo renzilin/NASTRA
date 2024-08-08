@@ -143,7 +143,7 @@ class search_tree:
             stillContinue       = self.check_stop(full_seq_set, full_seq_set_update)
             full_seq_set        = full_seq_set_update
             # print(len(full_seq_set))
-            
+        print(full_seq_set)
         if len(full_seq_set) > 1e5:
             return None 
         best_brac_seq = self.find_best_bracket(full_seq_set)

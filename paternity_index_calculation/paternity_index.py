@@ -2,6 +2,7 @@
 This is the code for Paternity Index calculation
 
 """
+import pandas as pd 
 from collections import defaultdict
 
 class Paternity_Index_Cal:
@@ -58,9 +59,44 @@ class Paternity_Index_Cal:
                 locus, allele, freq = line.strip().split(',')
                 freq_dict[locus][float(allele)] = float(freq)
         return freq_dict
+
+
+
+class LR_Index_Cal:
+    def __init__(self, freq_csv_path):
+        self.freq_csv_path = freq_csv_path
+        self.allele_freq_dict = self.get_allele_freq_dict()
+
+    def individual_identification_cal(self, alleles, locus):
+        if pd.isna(alleles):
+            return pd.NA
+
+        allele_1, allele_2 = float(alleles.split(',')[0]), float(alleles.split(',')[1])
+        locus_allele_freq_dict         = self.allele_freq_dict[locus]
+
+        if allele_1 == allele_2:
+            return locus_allele_freq_dict[allele_1] ** 2
+
+        else:
+            return 2 * locus_allele_freq_dict[allele_1] * locus_allele_freq_dict[allele_2]
+        
     
+    def get_allele_freq_dict(self):
+        
+        freq_dict = defaultdict(lambda: defaultdict(int))
+
+        with open(self.freq_csv_path, 'r') as f:
+            for line_cnt, line in enumerate(f):
+                if line_cnt == 0:
+                    continue
+                locus, allele, freq = line.strip().split(',')
+                freq_dict[locus][float(allele)] = float(freq)
+        return freq_dict
 
 if __name__ == '__main__':
     PIC = Paternity_Index_Cal('CHN_STR_allele_freqs.csv')
     print( PIC.single_paternity_cal([13.0, 10.0], [12.0, 10.0], 'CSF1PO') )
+
+    PIC = LR_Index_Cal('CHN_STR_allele_freqs.csv')
+    print( PIC.individual_identification_cal([13.0, 10.0], 'CSF1PO') )
     
