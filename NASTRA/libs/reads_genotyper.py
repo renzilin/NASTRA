@@ -136,6 +136,66 @@ def single_allele_genotyper(locus, editted_allele):
         if 'AGCT' in seq_lst[-1]:
             allele += 1
 
+
+
+    if locus.upper() == 'D19S433':
+        seq_lst = editted_allele.split(' ')[1:-1]
+        for ind, unit in enumerate(seq_lst):
+            if '[' in unit:
+                continue
+            if 'TT' == unit:
+                allele = allele - 1 + 0.2
+
+    if locus.upper() == 'D2S441':
+        if editted_allele.split(' ')[0][-1] == 'A':
+            allele = allele + 0.1
+        else:
+            seq_lst = editted_allele.split(' ')[1:-1]
+            for ind, unit in enumerate(seq_lst):
+                if '[' in unit:
+                    continue
+                if len(unit) == 4:
+                    allele += 1
+                else:
+                    allele += 0.1 * len(unit)
+                    
+    
+    if locus.upper() == 'D6S1043':
+        seq_lst = editted_allele.split(' ')[1:-1]
+        for ind, unit in enumerate(seq_lst):
+            if '[' in unit:
+                continue
+            allele = allele + len(unit) * 0.1
+
+    if locus.upper() == 'D1S1656':
+        seq_lst = editted_allele.split(' ')[1:-1]
+        for ind, unit in enumerate(seq_lst):
+            if '[' in unit:
+                continue
+            if 'TCA' == unit:
+                allele = allele + 0.3
+    
+    if locus.upper() == 'TH01':
+        seq_lst = editted_allele.split(' ')[1:-1]
+        for ind, unit in enumerate(seq_lst):
+            if '[' in unit:
+                continue
+            if 'ATG' == unit:
+                allele = allele + 0.3
+
+    if locus.upper() == 'D21S11':
+        seq_lst = editted_allele.split(' ')[1:-1]
+
+        digits = -11
+        for ind, unit in enumerate(seq_lst):
+            if '[' in unit:
+                continue
+            digits += len(unit)
+        if digits > 0:
+            allele += digits/10
+
+
+
     ## digital genotype
     if locus.upper() in ['FGA', 'CSF1PO']:
         pattern = r'[\[ATCG\]]+'
