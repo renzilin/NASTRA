@@ -75,5 +75,5 @@ optional arguments:
 ```
 
 
-## Citation
-
+## Citiing NASTRA
+Zilin Ren, Jiarong Zhang, Yixiang Zhang, Tingting Yang, Pingping Sun, Jiguo Xue, Xiaochen Bo, Bo Zhou, Jiangwei Yan, Ming Ni, NASTRA: accurate analysis of short tandem repeat markers by nanopore sequencing with repeat-structure-aware algorithm, Briefings in Bioinformatics, Volume 25, Issue 6, November 2024, bbae472, https://doi.org/10.1093/bib/bbae472
